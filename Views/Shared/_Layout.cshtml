@@ -114,7 +114,13 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script type='text/javascript'>$Spelling.SpellCheckAsYouType('all')</script>
+
     @RenderSection("scripts", required: false)
+    <script type='text/javascript' src='~/Controls/SpellCheckOnAll/include.js'></script>
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            $Spelling.SpellCheckAsYouType('all')
+        });
+    </script>
 </body>
 </html>

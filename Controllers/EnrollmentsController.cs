@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,6 +15,31 @@ namespace ControlsAndScaffoldingTemplates.Controllers
     public class EnrollmentsController : Controller
     {
         private SchoolContext db = new SchoolContext();
+
+
+        [HttpPost]
+        public ActionResult EnrollmentPartial(List<Enrollment> enrollments)
+        {
+            foreach (var enrollment in enrollments)
+            {
+                if (db.Courses.Any(x => x.CourseID == enrollment.CourseID))
+                {
+                    db.Enrollments.Attach(enrollment);
+                    DbEntityEntry<Enrollment> entry = db.Entry(enrollment);
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.Enrollments.Add(enrollment);
+                    db.SaveChanges();
+                }
+            }
+
+            db.SaveChanges();
+
+            return PartialView("_StudentEnrollmentPartial", enrollments);
+        }
 
         // GET: Enrollments
         public ActionResult Index()
