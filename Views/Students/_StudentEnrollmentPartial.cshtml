@@ -3,37 +3,118 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Course.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Student.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Grade)
-        </th>
-        <th></th>
-    </tr>
+<link href="~/Controls/EditableGrid/EditableGrid.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Grade)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EnrollmentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EnrollmentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.EnrollmentID })
-        </td>
-    </tr>
+<div class="container">
+
+
+    <input type="text" id="searchInput" onkeyup="search()" placeholder="Search for names..">
+
+    <div id="table" class="table-editable-container">
+        <span class="table-add fas fa-plus-circle"> @*<i class="fas fa-plus-circle"></i>*@ </span>
+        <table class="table" id="table-editable">
+            @*HEADER*@
+            <tr>
+                <th onclick="sortTable(0)">
+                    @Html.DisplayNameFor(model => model.Course.Title)
+                </th>
+                <th onclick="sortTable(1)">
+                    @Html.DisplayNameFor(model => model.Student.LastName)
+                </th>
+                <th onclick="sortTable(2)">
+                    @Html.DisplayNameFor(model => model.Grade)
+                </th>
+                <th onclick="sortTable(3)"></th>
+                <th onclick="sortTable(4)"></th>
+            </tr>
+            @*END HEADER*@
+
+            @*DATA*@
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Course.Title)
+                    </td>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Student.LastName)
+                    </td>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Grade)
+                    </td>
+                    <td>
+                        <span class="table-remove fas fa-trash"></span>
+                    </td>
+                    <td>
+                        <span class="table-up fas fa-arrow-up"></span>
+                        <span class="table-down fas fa-arrow-down"></span>
+                    </td>
+                </tr>
+            }
+
+            @*End of Testing Data*@
+            <!-- This is our clonable table line -->
+                <tr class="hide">
+                    <td contenteditable="true">Untitled</td>
+                    <td contenteditable="true">undefined</td>
+                    <td contenteditable="true">undefined</td>
+                    <td>
+                        <span class="table-remove fas fa-trash" "></span>
+                    </td>
+                    <td>
+                        <span class="table-up fas fa-arrow-up"></span>
+                        <span class="table-down fas fa-arrow-down"></span>
+                    </td>
+                </tr>
+        </table>
+    </div>
+
+    <button id="export-btn" class="btn btn-primary">Export Data</button>
+    <p id="export" style="display:none;"></p>
+</div>
+
+
+@section Scripts {
+    @*<link href='//fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>*@
+    
+
+    <script type="text/javascript">
+        $(document)
+            .ready(function () {
+
+                $('#export-btn').click(function () {
+                    var $rows = $TABLE.find('tr:not(:hidden)');
+                    var headers = [];
+                    var data = [];
+
+                    // Get the headers (add special header logic here)
+                    $($rows.shift()).find('th:not(:empty)').each(function () {
+                        headers.push($(this).text().toLowerCase());
+                    });
+
+                    // Turn all existing rows into a loopable array
+                    $rows.each(function () {
+                        var $td = $(this).find('td');
+                        var h = {};
+
+                        // Use the headers from earlier to name our hash keys
+                        headers.forEach(function (header, i) {
+                            h[header] = $td.eq(i).text();
+                        });
+
+                        data.push(h);
+                    });
+
+                    // Output the result
+                    $EXPORT.text(JSON.stringify(data));
+                    alert(JSON.stringify(data));
+                });
+            });
+
+    </script>
+
+
 }
 
-</table>
