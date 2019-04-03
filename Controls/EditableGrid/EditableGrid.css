@@ -1,0 +1,100 @@
+﻿@import "compass/css3";
+.searchInput {
+    background-image: url('search.png');
+    /*background-image: url('/css/searchicon.png');*/ /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+}
+
+@import "compass/css3";
+
+#table-editable {
+
+    /*display:block;*/
+    max-height:500px;
+    width: 900px;
+    min-height:200px;
+    min-width:400px;
+    max-width:1400px;
+}
+
+.table-editable-container {
+    position: relative;
+    width: 900px;
+    overflow: auto;
+    white-space: nowrap;
+    max-height: 500px;
+    /*height:50px;*/
+}
+    .table-editable-container th { cursor:pointer;
+    }
+    .table-editable-container tr {
+        border-bottom: 1px solid #ddd;
+    }
+        .table-editable-container tr.header, .table-editable-container tr:hover:not(th) {
+            /* Add a grey background color to the table header and on hover */
+            background-color: #f1f1f1;
+        }
+.table-editable-container .fas {
+    font-size: 20px;
+}
+.table-remove {
+    color: #700;
+    cursor: pointer;
+
+
+}
+.table-remove:hover {
+    color: #f00;
+}
+.table-up,
+.table-down {
+    color: #007;
+    cursor: pointer;
+}
+    .table-down:hover {
+        color: #00f;
+    }
+    .table-up:hover {
+        color: #00f;
+    }
+
+.table-add {
+    color: #070;
+    cursor: pointer;
+    position: absolute;
+    top: 8px;
+    right: 0;
+
+}
+    .table-add:hover {
+        color: #0b0;
+    }
+
+
+input[type="button"] {
+    transition: all .3s;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+input[type="button"]:not(.active) {
+    background-color: transparent;
+}
+
+/*.active {
+    background-color: #ff4d4d;
+    color: #fff;
+}*/
+
+input[type="button"]:hover:not(.active) {
+    background-color: #ddd;
+}

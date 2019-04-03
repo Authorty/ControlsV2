@@ -7,7 +7,7 @@
 
 <h2>Edit</h2>
 @section header{
-<link href="~/Content/Required.css" rel="stylesheet" />
+    <link href="~/Content/Required.css" rel="stylesheet" />
 }
 
 @using (Html.BeginForm())
@@ -84,3 +84,7 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts{
+    <script src="~/Controls/EditableGrid/EditableGrid.js" type="text/javascript"></script>
+}
