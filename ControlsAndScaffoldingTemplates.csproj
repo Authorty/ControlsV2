@@ -213,8 +213,11 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Course.cs" />
     <Compile Include="Models\Enrollment.cs" />
+    <Compile Include="Models\EnrollmentsViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MetaData.cs" />
+    <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -251,6 +254,13 @@
     <Content Include="Controls\CheckBox\checkbox.js" />
     <Content Include="Controls\SliderBar\SliderBar.text" />
     <Content Include="Controls\StepsProgressBar\StepsProgressBar.text" />
+    <Content Include="CodeTemplates\MvcView\LoadPartialGrid.cs.t4" />
+    <Content Include="CodeTemplates\AddView\CSHTML\Testing.cs.t4" />
+    <Content Include="CodeTemplates\AddView\CSHTML\LoadPartialGrid.cs.t4" />
+    <Content Include="CodeTemplates\MvcControllerWithContext\LoadPartialGrid.cs.t4" />
+    <Content Include="CodeTemplates\MvcControllerWithContext\Testing.cs.t4" />
+    <Content Include="CodeTemplates\ViewTemplate\Testing.cs.t4" />
+    <Content Include="CodeTemplates\ViewTemplate\LoadPartialGrid.cs.t4" />
     <None Include="Controls\CheckBox\checkboxExample.text" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -391,11 +401,6 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
-    <Content Include="Views\Courses\Create.cshtml" />
-    <Content Include="Views\Courses\Delete.cshtml" />
-    <Content Include="Views\Courses\Details.cshtml" />
-    <Content Include="Views\Courses\Edit.cshtml" />
-    <Content Include="Views\Courses\Index.cshtml" />
     <Content Include="Views\Enrollments\Create.cshtml" />
     <Content Include="Views\Enrollments\Delete.cshtml" />
     <Content Include="Views\Enrollments\Details.cshtml" />
@@ -403,6 +408,12 @@
     <Content Include="Views\Enrollments\Index.cshtml" />
     <Content Include="Views\Students\StudentCourcesPartial.cshtml" />
     <Content Include="Views\Students\_StudentEnrollmentPartial.cshtml" />
+    <Content Include="Views\Courses\Create.cshtml" />
+    <Content Include="Views\Courses\Delete.cshtml" />
+    <Content Include="Views\Courses\Details.cshtml" />
+    <Content Include="Views\Courses\Edit.cshtml" />
+    <Content Include="Views\Courses\Index.cshtml" />
+    <Content Include="Views\Enrollments\_StudentEnrollmentPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -14,6 +15,31 @@ namespace ControlsAndScaffoldingTemplates.Controllers
     public class StudentsController : Controller
     {
         private SchoolContext db = new SchoolContext();
+
+
+        [HttpPost]
+        public ActionResult EnrollmentPartial(List<Enrollment> enrollments)
+        {
+            foreach (var enrollment in enrollments)
+            {
+                if (db.Courses.Any(x => x.CourseID == enrollment.CourseID))
+                {
+                    db.Enrollments.Attach(enrollment);
+                    DbEntityEntry<Enrollment> entry = db.Entry(enrollment);
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.Enrollments.Add(enrollment);
+                    db.SaveChanges();
+                }
+            }
+
+            db.SaveChanges();
+            
+            return PartialView("_StudentEnrollmentPartial", enrollments);
+        }
 
         // GET: Students
         public ActionResult Index()
@@ -67,6 +93,10 @@ namespace ControlsAndScaffoldingTemplates.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Student student = db.Students.Find(id);
+
+            student.initialEnrollments = db.Enrollments.Where(x => x.StudentID == student.ID).Select(x=>x.EnrollmentID).ToList();
+            //student.enrollmentsForView.Enrollments = db.Enrollments.Where(x => x.StudentID == student.ID).ToList();
+            //db.Enrollments.Where(x => x.StudentID == student.ID).ToList();
             if (student == null)
             {
                 return HttpNotFound();

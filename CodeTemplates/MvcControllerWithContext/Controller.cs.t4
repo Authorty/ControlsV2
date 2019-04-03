@@ -35,6 +35,7 @@ else
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
 using System.Linq;
 <# if (UseAsync) { #>
@@ -123,6 +124,79 @@ namespace <#= Namespace #>
             }
             return View(<#= ModelVariable #>);
         }
+
+
+
+
+
+                // GET: <#= routePrefix #>/LoadPartialGrid
+        public ActionResult LoadPartialGrid(List<<#= ModelTypeName #>> <#= ModelVariable #>es)
+        {
+<# foreach (var property in relatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>");
+<# } #>
+            return PartialView();
+        }
+
+
+        // POST: <#= routePrefix #>/SavePartialGrid
+<# if (IsOverpostingProtectionRequired) {
+    foreach (var line in OverpostingWarningMessage.Split(new string[] { Environment.NewLine }, StringSplitOptions.None)) { 
+#>
+        // <#= line #>
+<# } } #>
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+<# if (UseAsync) { #>
+        public async Task<ActionResult> SavePartialGrid(List<<#= ModelTypeName #>> <#= ModelVariable #>es)
+<# } else { #>
+        public ActionResult SavePartialGrid(List<<#= ModelTypeName #>> <#= entitySetName #>)
+<# } #>
+        {
+            if (ModelState.IsValid)
+            {
+<# if(!String.IsNullOrEmpty(primaryKeyType) && String.Equals("System.Guid", primaryKeyType, StringComparison.OrdinalIgnoreCase)) { #>
+                <#= ModelVariable #>.<#= primaryKeyName #> = Guid.NewGuid();
+<# } #>
+            foreach (var <#= ModelVariable #> in <#= entitySetName #>)
+            {
+                if (db.<#= entitySetName #>.Any(x => x.<#= primaryKeyName #> == <#= ModelVariable #>.<#= primaryKeyName #>))
+                {
+                    db.<#= entitySetName #>.Attach(<#= ModelVariable #> );
+                    DbEntityEntry<<#= ModelTypeName #>> entry = db.Entry(<#= ModelVariable #> );
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.<#= entitySetName #>.Add(<#= ModelVariable #>);
+                    db.SaveChanges();
+                }
+            }
+
+
+
+
+
+<# if (UseAsync) {#>
+                await <#= contextTypeName #>.SaveChangesAsync();
+<# } else { #>
+                db.SaveChanges();
+<# } #>
+                return PartialView("LoadPartialGrid");
+            }
+
+<# foreach (var property in relatedProperties.Values) { #>
+            ViewBag.<#= property.ForeignKeyPropertyNames[0] #> = new SelectList(db.<#= property.EntitySetName #>, "<#= property.PrimaryKeyNames[0] #>", "<#= property.DisplayPropertyName #>", <#= ModelVariable #>.<#= property.ForeignKeyPropertyNames[0] #>);
+<# } #>
+            return PartialView("LoadPartialGrid");
+        }
+
+
+
+
+
+
 
         // GET: <#= routePrefix #>/Create
         public ActionResult Create()

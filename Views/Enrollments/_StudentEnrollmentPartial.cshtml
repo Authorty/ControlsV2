@@ -67,39 +67,39 @@
             @foreach (var item in Model)
             {
 
-            <tr>
-                <td style="display:none">
-                    @Html.DisplayFor(modelItem => item.CourseID)
-                    @Html.HiddenFor(modelItem => item.CourseID)
-                </td>
-                <td style="display:none">
-                    @Html.DisplayFor(modelItem => item.EnrollmentID)
-                    @Html.HiddenFor(modelItem => item.EnrollmentID)
-                </td>
-                <td style="display:none">
-                    @Html.DisplayFor(modelItem => item.StudentID)
-                    @Html.HiddenFor(modelItem => item.StudentID)
-                </td>
+                <tr>
+                    <td style="display:none">
+                        @Html.DisplayFor(modelItem => item.CourseID)
+                        @Html.HiddenFor(modelItem => item.CourseID)
+                    </td>
+                    <td style="display:none">
+                        @Html.DisplayFor(modelItem => item.EnrollmentID)
+                        @Html.HiddenFor(modelItem => item.EnrollmentID)
+                    </td>
+                    <td style="display:none">
+                        @Html.DisplayFor(modelItem => item.StudentID)
+                        @Html.HiddenFor(modelItem => item.StudentID)
+                    </td>
 
-                <td contenteditable="true">
-                    @Html.DisplayFor(modelItem => item.Course.Title) @Html.HiddenFor(modelItem => item.Course.Title)
-                    @Html.HiddenFor(modelItem => item.Course.CourseID)
-                </td>
-                <td contenteditable="true">
-                    @Html.DisplayFor(modelItem => item.Student.LastName) @Html.HiddenFor(modelItem => item.Student.LastName)
-                    @Html.HiddenFor(modelItem => item.Student.ID)
-                </td>
-                <td contenteditable="true">
-                    @Html.DisplayFor(modelItem => item.Grade) @Html.HiddenFor(modelItem => item.Grade)
-                </td>
-                <td>
-                    <span class="table-remove fas fa-trash"></span>
-                </td>
-                <td>
-                    <span class="table-up fas fa-arrow-up"></span>
-                    <span class="table-down fas fa-arrow-down"></span>
-                </td>
-            </tr>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Course.Title) @Html.HiddenFor(modelItem => item.Course.Title)
+                        @Html.HiddenFor(modelItem => item.Course.CourseID)
+                    </td>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Student.LastName) @Html.HiddenFor(modelItem => item.Student.LastName)
+                        @Html.HiddenFor(modelItem => item.Student.ID)
+                    </td>
+                    <td contenteditable="true">
+                        @Html.DisplayFor(modelItem => item.Grade) @Html.HiddenFor(modelItem => item.Grade)
+                    </td>
+                    <td>
+                        <span class="table-remove fas fa-trash"></span>
+                    </td>
+                    <td>
+                        <span class="table-up fas fa-arrow-up"></span>
+                        <span class="table-down fas fa-arrow-down"></span>
+                    </td>
+                </tr>
             }
 
             @*End of Testing Data*@

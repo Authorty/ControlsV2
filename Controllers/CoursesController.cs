@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
@@ -35,6 +36,59 @@ namespace ControlsAndScaffoldingTemplates.Controllers
             }
             return View(course);
         }
+
+
+
+
+
+                // GET: Courses/LoadPartialGrid
+        public ActionResult LoadPartialGrid(List<Course> coursees)
+        {
+            return PartialView();
+        }
+
+
+        // POST: Courses/SavePartialGrid
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SavePartialGrid(List<Course> Courses)
+        {
+            if (ModelState.IsValid)
+            {
+            foreach (var course in Courses)
+            {
+                if (db.Courses.Any(x => x.CourseID == course.CourseID))
+                {
+                    db.Courses.Attach(course );
+                    DbEntityEntry<Course> entry = db.Entry(course );
+                    entry.State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    db.Courses.Add(course);
+                    db.SaveChanges();
+                }
+            }
+
+
+
+
+
+                db.SaveChanges();
+                return PartialView("LoadPartialGrid");
+            }
+
+            return PartialView("LoadPartialGrid");
+        }
+
+
+
+
+
+
 
         // GET: Courses/Create
         public ActionResult Create()

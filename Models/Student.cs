@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ControlsAndScaffoldingTemplates.Models
 {
-    public class Student
+    public partial class Student
     {
         public int ID { get; set; }
         public string LastName { get; set; }
