@@ -1,0 +1,38 @@
+﻿/*.simple-form {
+    display: flex;
+    overflow-y: scroll;
+    padding-bottom: 1.25rem;
+}*/
+
+.form-horizontal input {
+    margin: 0 .25rem;
+    min-width: 125px;
+    border: 1px solid #eee;
+    border-left: 3px solid;
+    border-radius: 5px;
+    transition: border-color .5s ease-out;
+}
+
+    .form-horizontal input:optional {
+        border-left-color: #999;
+    }
+
+    .form-horizontal input:required {
+        border-left-color: palegreen;
+    }
+
+    .form-horizontal input:invalid {
+        border-left-color: salmon;
+    }
+    .form-horizontal input:required:focus:valid {
+        /*background: url("/images/check.svg") no-repeat 95% 50%;*/
+        background: url("../Controls/MakeTextRequired/icons8-checkmark-48.png") no-repeat 95% 50%;
+        background-size: 25px;
+    }
+
+    .form-horizontal input:focus:invalid {
+        /*background: url("/images/tnt.svg") no-repeat 95% 50%;*/
+        background: url("../Controls/MakeTextRequired/icons8-delete-100.png") no-repeat 95% 50%;
+        /*background: url('icons8-checkmark-48.png') no-repeat 95% 50%;*/
+        background-size: 45px;
+    }
